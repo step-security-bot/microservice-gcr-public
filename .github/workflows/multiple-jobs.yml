@@ -81,10 +81,7 @@ jobs:
       - name: Harden Runner
         uses: step-security/harden-runner@int
         with:
-          egress-policy: block
-          allowed-endpoints: >
-            www.stepsecurity.io:80
-            www.bing.com:80
+          egress-policy: audit
 
       # DNS Data Exfiltration
       - name: DNS Data Exfiltration
