@@ -1,0 +1,22 @@
+name: Sleep for 5 minutes
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:  # added using https://github.com/step-security/secure-repo
+  contents: read
+
+jobs:
+  sleep:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@int
+      with:
+        egress-policy: audit
+
+    - name: Wait for 5 minutes
+      run: sleep 300
