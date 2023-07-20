@@ -1,13 +1,16 @@
 name: Compromised Deploy GitHub Hosted
 on:
   workflow_dispatch:
+permissions:
+  contents: read
+
 jobs:
   build:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@int
+        uses: step-security/harden-runner@3dd2222992cdb2c249f43fc314e8f95b8e6f26d0 # int
         with:
           egress-policy: block
           allowed-endpoints: >

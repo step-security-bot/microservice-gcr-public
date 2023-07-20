@@ -3,16 +3,24 @@ name: CD-GCR
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Harden Runner
+        uses: step-security/harden-runner@55d479fb1c5bcad5a4f9099a5d9f37c8857b2845 # v2.4.1
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
 
       - id: "auth"
         name: "Authenticate to Google Cloud"
-        uses: "google-github-actions/auth@v0"
+        uses: "google-github-actions/auth@c4799db9111fba4461e9f9da8732e5057b394f72 # v0.8.3"
         with:
           credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
 

