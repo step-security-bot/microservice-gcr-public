@@ -1,6 +1,9 @@
 name: Compromised Deploy GitHub Hosted
 on:
   workflow_dispatch:
+permissions:
+  contents: read
+
 jobs:
   build:
     name: Deploy

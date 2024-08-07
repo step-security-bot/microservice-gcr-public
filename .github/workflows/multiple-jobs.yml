@@ -1,6 +1,9 @@
 name: Multiple Jobs
 on:
   workflow_dispatch:
+permissions:
+  contents: read
+
 jobs:
   job1:
     name: Job1
