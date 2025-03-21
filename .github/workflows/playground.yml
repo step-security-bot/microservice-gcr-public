@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:  
+
+permissions:  # added using https://github.com/step-security/secure-repo
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@446798f8213ac2e75931c1b0769676d927801858 # v2.10.0
+      with:
+        disable-sudo: true
+        egress-policy: block
+        allowed-endpoints: >
+          files.pythonhosted.org:443
+          github.com:443
+          pypi.org:443
+
+    - name: Checkout repository
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      
+    - name: Set up Python 3.11
+      uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
+      with:
+        python-version: 3.11
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    - name: Echo
+      run: echo "213" > playground.md

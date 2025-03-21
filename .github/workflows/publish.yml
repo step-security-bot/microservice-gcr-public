@@ -1,0 +1,20 @@
+name: Puzzle
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: npm install
+        run: |
+          cd ./src/exfiltration-demo
+          npm install
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@eb53b3ec07136a6ebaed78d8135806da64f7c7e2 # v5
+        with:
+          name: ${{ github.repository }}/prod:latest
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+          workdir: ./src/exfiltration-demo
